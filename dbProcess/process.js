@@ -4,11 +4,9 @@ class processes {
     checkUser(user,password,callback) {
         var userExist = false;
         for(var i=0;i<db.length;i++) {
-            if(db[i]["name"]==user) {
-                if(db[i]["password"]==password) {
-                    userExist = true;
-                    break;
-                }
+            if(db[i]["name"]==user && db[i]["password"]==password) {   
+                userExist = true;
+                break;
             }
         }
         if(userExist) {

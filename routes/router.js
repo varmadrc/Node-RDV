@@ -1,8 +1,11 @@
 var express = require('express');
+
 //var path = require('path');
 var router = express.Router();
-var process = require('../dbProcess/process');
+//var process = require('../dbProcess/process');
 var proc = require('../dbProcess/proc');
+var sql = require('../dbProcess/sqlDbMethods');
+
 var bodyParser = require('body-parser');
 var urlenbodyParser = bodyParser.urlencoded({extended:false});
 
@@ -16,15 +19,63 @@ router.get('/',function(req,res) {
 router.get('/pug',function(req,res) {
     res.render('index', { title: 'Node', message: 'Dont submit the form' });
 });
-router.post('/user', urlenbodyParser, function(req,res) {
-    var pro = new process();
+router.get('/mobileData',function(req,res) {
+    let mobiles = new sql();
+    mobiles.getdata(function(err,data) {
+        if(err)
+            return res.send(err);
+        else
+            res.send(data);
+    });
+});
+router.get('/getHeros',function(req,res) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.send([
+        {
+          name: 'Superman',
+          location: 'Metropolitan'
+        },
+        {
+          name: 'Batman',
+          location: 'Wayne Manor'
+        },
+        {
+          name: 'Flash',
+          location: ''
+        },
+        {
+          name: 'AuqaMan',
+          location: 'Ocean'
+        },
+        {
+          name: 'WonderWoman',
+          location: 'Atlantis'
+        },
+        {
+          name: 'GreenLantern',
+          location: 'GreenLantern Corp.'
+        },
+        {
+          name: 'Cyborg',
+          location: ''
+        },
+        {
+          name: 'Martian ManHunter',
+          location: 'Mars'
+        }
+      ]);
+});
+router.post('/userValidation', urlenbodyParser, function(req,res) {
+    let sqlMethods = new sql();
     var user = req.body.user;
     var password = req.body.password;
-    pro.checkUser(user,password,function (err, result) {
+    sqlMethods.checkUser(user,password,function (err, result) {
         if(err) {
-            res.render('index', { title: 'Node', message: 'Login Form', error: 'Check credentials' });
+            res.render('index', { title: 'Node', message: 'Login Form', error: 'Check connection'});
+        } else if (result.recordset[0].UserRoleID>0) {
+            res.send('Sucessesfully logged in');
         } else {
-            res.send('Sucessesfully posted');
+            res.render('index', { title: 'Node', message: 'Login Form', error: 'Check credentials'});
         }
     })
 });
@@ -37,6 +88,5 @@ router.get('/getPassword', function(req,res) {
         }
     })
 });
-
 
 module.exports = router;

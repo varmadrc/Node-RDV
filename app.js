@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+var cors = require('cors')
 //var path = require('path');
 
 /**
@@ -16,10 +17,13 @@ app.set('view engine', 'pug');
 var router = require('./routes/router');
 app.use('/',router);
 
+//app.use(cors());
+//app.use('Access-Control-Allow-Origin','*');
+
 /**
  * port config
  */
 const port = 8081;
 app.listen(port, function () {
-    console.log('Example app listening on port:' + port);
+    console.log('App listening on port:' + port);
 })
