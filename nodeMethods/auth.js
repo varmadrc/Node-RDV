@@ -13,6 +13,9 @@ module.exports = class Auth {
     /**
      * generation of token.
      * Params: callback function.
+     * Step 1. Create payload with issuerTag from config and expiry time in seconds
+     * Step 2. Encode the payload and secret from config using jwt encode method.
+     * Step 3. callback with created token as parameter.
      */
     generateToken(callback) {
         let payload = {
@@ -27,6 +30,8 @@ module.exports = class Auth {
     /**
      * Validation of token.
      * Params: token to be decoded and callback function.
+     * Step 1. Decode the token, using jwt decode method with token and secret from config as parameters.
+     * step 2. check if token expired. If within limits, callback with no error(null) and details or some value as parameters. 
      */
     validateToken(token, callback) {
         try {
