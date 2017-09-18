@@ -33,7 +33,7 @@ module.exports = class Auth {
             let token_details = jwt.decode(token, config.jwt.secret);
             console.log(token_details);
             console.log(Math.floor(new Date().getTime()));
-            if (token_details.exp>Math.floor(new Date().getTime())) {
+            if (token_details.exp > Math.floor(new Date().getTime())) {
                 callback(null, token_details);
             }
         } catch (err) {
