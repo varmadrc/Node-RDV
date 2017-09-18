@@ -31,6 +31,7 @@ module.exports = class Auth {
     validateToken(token, callback) {
         try {
             let token_details = jwt.decode(token, config.jwt.secret);
+            console.log(token_details);
             callback(null, token_details);
         } catch (err) {
             callback(err, null);
