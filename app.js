@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-var cors = require('cors')
+//var cors = require('cors')
 //var path = require('path');
 
 /**

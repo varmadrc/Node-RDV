@@ -72,8 +72,8 @@ router.post('/userValidation', urlenbodyParser, function(req,res) {
     sqlMethods.checkUser(user,password,function (err, result) {
         if(err) {
             res.render('index', { title: 'Node', message: 'Login Form', error: 'Check connection'});
-        } else if (result.recordset[0].UserRoleID>0) {
-            res.send('Sucessesfully logged in');
+        } else if (result) {
+            res.send(result);
         } else {
             res.render('index', { title: 'Node', message: 'Login Form', error: 'Check credentials'});
         }
