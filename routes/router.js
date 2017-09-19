@@ -6,9 +6,6 @@ var router = express.Router();
 var proc = require('../dbProcess/proc');
 var sql = require('../dbProcess/sqlDbMethods');
 
-var bodyParser = require('body-parser');
-var urlenbodyParser = bodyParser.urlencoded({ extended: false });
-
 
 router.get('/', function (req, res) {
     //console.log(path.dirname(__dirname),' , ', __dirname);
@@ -66,7 +63,7 @@ router.get('/getHeros', function (req, res) {
         }
     ]);
 });
-router.post('/userValidation', urlenbodyParser, function (req, res) {
+router.post('/userValidation', function (req, res) {
     let sqlMethods = new sql();
     var user = req.body.user;
     var password = req.body.password;
