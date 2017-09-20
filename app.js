@@ -23,7 +23,7 @@ app.set('view engine', 'pug');
 
 /**
  * Base router in seperate file
- * can be moved to donfig file.
+ * can be moved to config file.
  */
 var router = require('./routes/router');
 app.use('/',router);
