@@ -82,4 +82,27 @@ module.exports = class sql {
             }
         });
     };
+    getTables(callback) {
+        console.log("@Tables method");
+        let dbCon = new db();
+        dbCon.getCon(function (err, conn) {
+            if (err) {
+                let error = JSON.stringify({ status: 500, msg: 'Connection error' });
+                callback(error, null);
+            }
+            else {
+                conn.execute('usp_getTwoTables')
+                    .then(function (data) {
+                        console.log(data);
+                        dbCon.closeCon();
+                        callback(null, data);
+                    })
+                    .catch(function (err) {
+                        dbCon.closeCon();
+                        console.log(err);
+                        callback(error, null);
+                    });
+            }
+        });
+    };
 }

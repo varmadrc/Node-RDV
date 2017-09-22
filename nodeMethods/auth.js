@@ -41,8 +41,13 @@ module.exports = class Auth {
             if (token_details.exp > Math.floor(new Date().getTime())) {
                 callback(null, token_details);
             }
+            else {
+                console.log('time expired');
+                callback('time expired', null);
+            }
         } catch (err) {
             callback(err, null);
+            console.log("@validate catch");
         }
     };
 }

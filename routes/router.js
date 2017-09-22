@@ -16,7 +16,21 @@ router.get('/', function (req, res) {
 router.get('/pug', function (req, res) {
     res.render('index', { title: 'Node', message: 'Dont submit the form' });
 });
+router.get('/twoTableTest', function (req, res) {
+    let mobiles = new sql();
+    mobiles.getTables(function (err, data) {
+        if (err)
+            return res.send(err);
+        else
+            result = [data.recordsets[0],data.recordsets[1]]
+            console.log(data.recordsets[1]);
+            res.send(result);
+    });
+});
 router.get('/mobileData', function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header('Access-Control-Allow-Methods', 'HEAD, GET, POST, PUT, PATCH, DELETE');
+    res.header('Access-Control-Allow-Headers', 'Origin, Content-Type, X-Auth-Token');
     let auth = req.headers['authentication'];
     let mobiles = new sql();
     mobiles.getdata(auth,function (err, data) {
